@@ -12,7 +12,6 @@ import (
 
 type ElasticsearchSetup struct {
 	Logger              logger.ILoggerProvider
-	Brand               string
 	Config              initializers.Initializer
 	ElasticsearchClient *elasticsearch.Client
 }

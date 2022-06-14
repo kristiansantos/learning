@@ -20,7 +20,6 @@ var (
 	port        int
 	addr        string
 	environment string
-	brandName   string
 	version     string
 	apiCmd      = &cobra.Command{
 		Use:   "api",
@@ -33,7 +32,7 @@ var (
 
 			os.Getenv("ENV")
 
-			cfg, err := environments.ReadEnvironments(environment, brandName, version)
+			cfg, err := environments.ReadEnvironments(environment, version)
 
 			if err != nil {
 				panic(err)
@@ -57,6 +56,5 @@ func init() {
 	apiCmd.PersistentFlags().IntVarP(&port, "port", "p", 3000, "The -p option specified port HTTP server")
 	apiCmd.PersistentFlags().StringVarP(&addr, "address", "a", "127.0.0.1", "The -b option binds specified IP, by default it is localhost")
 	apiCmd.PersistentFlags().StringVarP(&environment, "environment", "e", "development", "The -e option specified the environment")
-	apiCmd.PersistentFlags().StringVarP(&brandName, "brand", "b", os.Getenv("BRAND"), "The -b option specified brand to deploy")
 	apiCmd.PersistentFlags().StringVarP(&version, "version", "v", os.Getenv("VERSION"), "The -v option specified version to deploy")
 }

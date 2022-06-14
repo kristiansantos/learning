@@ -31,7 +31,6 @@ func New(addr string, port int) *server {
 func (s *server) Run(initializer initializers.Initializer, log logger.ILoggerProvider) error {
 	log.Info("server.main.Run", fmt.Sprintf("Server running on port :%d", s.Port))
 	log.Info("server.main.Run", fmt.Sprintf("Environment: %s", initializer.Environment))
-	log.Info("server.main.Run", fmt.Sprintf("Brand: %s", initializer.Brand))
 	log.Info("server.main.Run", fmt.Sprintf("Version: %s", initializer.Version))
 
 	//Mongo db conection

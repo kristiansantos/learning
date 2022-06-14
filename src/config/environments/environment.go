@@ -9,7 +9,7 @@ import (
 
 var Instance *initializers.Initializer = nil
 
-func ReadEnvironments(environment, brand, version string) (initializers.Initializer, error) {
+func ReadEnvironments(environment, version string) (initializers.Initializer, error) {
 	var initializer initializers.Initializer
 
 	if err := cleanenv.ReadEnv(&initializer); err != nil {
@@ -17,7 +17,6 @@ func ReadEnvironments(environment, brand, version string) (initializers.Initiali
 	}
 
 	initializer.Environment = environment
-	initializer.Brand = brand
 	initializer.Version = version
 
 	Instance = &initializer
