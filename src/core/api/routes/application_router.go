@@ -3,7 +3,7 @@ package routes
 import (
 	"github.com/go-chi/chi"
 	"github.com/kristiansantos/learning/src/core/api/handlers"
-	"github.com/kristiansantos/learning/src/core/api/routes/placement"
+	"github.com/kristiansantos/learning/src/core/api/routes/user"
 	"github.com/kristiansantos/learning/src/shared/middlewares"
 )
 
@@ -27,5 +27,5 @@ func (r *router) Setup() {
 	middlewares.ResourceStatus(r.Client)
 
 	// set routes
-	placement.NewRoutes(r.Client, r.Handlers.NewPlacementHandler())
+	user.NewRoutes(r.Client, r.Handlers.NewUserHandler())
 }

@@ -1,4 +1,4 @@
-package placement
+package user
 
 import (
 	"net/http"
@@ -8,10 +8,10 @@ import (
 	"github.com/kristiansantos/learning/src/shared/tools/namespace"
 )
 
-var Namespace = namespace.New("core.api.handlers.placement")
+var Namespace = namespace.New("core.api.handlers.user")
 
 type IHandler interface {
-	IndexPlacementHandler(r *http.Request) communication.Response
+	IndexUserHandler(r *http.Request) communication.Response
 }
 
 type handler struct {

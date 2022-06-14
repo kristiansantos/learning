@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"github.com/kristiansantos/learning/src/core/api/handlers/placement"
+	"github.com/kristiansantos/learning/src/core/api/handlers/user"
 	"github.com/kristiansantos/learning/src/shared/providers/logger"
 )
 
@@ -12,22 +12,22 @@ type Dependencies struct {
 
 // Implementa interface de hendler
 type IHandler interface {
-	NewPlacementHandler() placement.IHandler
+	NewUserHandler() user.IHandler
 }
 
 // Implementa struct de handler
 type handler struct {
-	PlacementHandler placement.IHandler
+	userHandler user.IHandler
 }
 
 // Função que retorna uma struct de handler com as dependencias
 func NewHandler(dep Dependencies) handler {
 	return handler{
-		PlacementHandler: placement.NewHandler(dep.Logger),
+		userHandler: user.NewHandler(dep.Logger),
 	}
 }
 
 // Implementa metodo declarado na struct
-func (h handler) NewPlacementHandler() placement.IHandler {
-	return h.PlacementHandler
+func (h handler) NewUserHandler() user.IHandler {
+	return h.userHandler
 }
