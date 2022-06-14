@@ -6,23 +6,23 @@ import (
 	"net/http"
 
 	"github.com/elastic/go-elasticsearch/v7"
-	"github.com/kristiansantos/learning/src/config/initializers"
-	"github.com/kristiansantos/learning/src/shared/providers/logger"
+	"github.com/kristiansantos/learning/src/config/initializer"
+	"github.com/kristiansantos/learning/src/shared/provider/logger"
 )
 
 type ElasticsearchSetup struct {
 	Logger              logger.ILoggerProvider
-	Config              initializers.Initializer
+	Config              initializer.Application
 	ElasticsearchClient *elasticsearch.Client
 }
 
-func Connection(initializer initializers.Initializer, log logger.ILoggerProvider) error {
+func Connection(app initializer.Application, log logger.ILoggerProvider) error {
 	cfg := elasticsearch.Config{
 		Addresses: []string{
-			initializer.Elasticsearch.Url,
+			app.Elasticsearch.Url,
 		},
-		Username: initializer.Elasticsearch.User,
-		Password: initializer.Elasticsearch.Pass,
+		Username: app.Elasticsearch.User,
+		Password: app.Elasticsearch.Pass,
 		Transport: &http.Transport{
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: true,

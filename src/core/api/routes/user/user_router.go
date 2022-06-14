@@ -4,7 +4,7 @@ import (
 	"github.com/go-chi/chi"
 
 	"github.com/kristiansantos/learning/src/core/api/handlers/user"
-	"github.com/kristiansantos/learning/src/shared/middlewares"
+	middlewares "github.com/kristiansantos/learning/src/shared/middleware"
 )
 
 func NewRoutes(router *chi.Mux, userHandler user.IHandler) {

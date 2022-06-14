@@ -4,7 +4,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/kristiansantos/learning/src/core/api/handlers"
 	"github.com/kristiansantos/learning/src/core/api/routes/user"
-	"github.com/kristiansantos/learning/src/shared/middlewares"
+	"github.com/kristiansantos/learning/src/shared/middleware"
 )
 
 type router struct {
@@ -21,10 +21,10 @@ func NewRoutes(handlers handlers.IHandler) *router {
 
 func (r *router) Setup() {
 	// middlewares start setup
-	middlewares.LoadOptions(r.Client)
-	middlewares.MethodNotAllowed(r.Client)
-	middlewares.NotFound(r.Client)
-	middlewares.ResourceStatus(r.Client)
+	middleware.LoadOptions(r.Client)
+	middleware.MethodNotAllowed(r.Client)
+	middleware.NotFound(r.Client)
+	middleware.ResourceStatus(r.Client)
 
 	// set routes
 	user.NewRoutes(r.Client, r.Handlers.NewUserHandler())

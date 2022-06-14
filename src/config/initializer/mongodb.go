@@ -1,4 +1,4 @@
-package initializers
+package initializer
 
 type Mongo struct {
 	User     string `env:"mongo_user"`

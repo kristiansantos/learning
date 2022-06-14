@@ -5,15 +5,13 @@ import (
 	"fmt"
 	"html"
 
-	"github.com/kristiansantos/learning/src/config/environments"
-	"github.com/kristiansantos/learning/src/config/initializers"
+	"github.com/kristiansantos/learning/src/config/environment"
+	"github.com/kristiansantos/learning/src/config/initializer"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-var (
-	singletonStorage *Storage = nil
-)
+var singletonStorage *Storage = nil
 
 type Storage struct {
 	Error   error
@@ -21,7 +19,7 @@ type Storage struct {
 }
 
 func New(ctx context.Context) Storage {
-	environment := *environments.Instance
+	environment := *environment.Instance
 
 	if singletonStorage == nil {
 		mongoDB, err := connect(ctx, environment)
@@ -35,7 +33,7 @@ func New(ctx context.Context) Storage {
 	return *singletonStorage
 }
 
-func connect(ctx context.Context, init initializers.Initializer) (*mongo.Database, error) {
+func connect(ctx context.Context, init initializer.Application) (*mongo.Database, error) {
 	var mongoUri string = html.UnescapeString(fmt.Sprintf("mongodb://%s:%s@%s/%s",
 		init.Mongo.User, init.Mongo.Pass, init.Mongo.Host, init.Mongo.Database))
 

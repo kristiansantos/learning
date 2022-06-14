@@ -2,7 +2,7 @@ package handlers
 
 import (
 	"github.com/kristiansantos/learning/src/core/api/handlers/user"
-	"github.com/kristiansantos/learning/src/shared/providers/logger"
+	"github.com/kristiansantos/learning/src/shared/provider/logger"
 )
 
 // Implementa struct de dependecias

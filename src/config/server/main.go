@@ -6,13 +6,13 @@ import (
 	"net/http"
 	"os"
 
-	"github.com/kristiansantos/learning/src/config/initializers"
+	"github.com/kristiansantos/learning/src/config/initializer"
 	"github.com/kristiansantos/learning/src/core/api/handlers"
 	"github.com/kristiansantos/learning/src/core/api/routes"
 	"github.com/kristiansantos/learning/src/shared/database/elasticsearch"
 	"github.com/kristiansantos/learning/src/shared/database/mongodb"
-	"github.com/kristiansantos/learning/src/shared/middlewares"
-	"github.com/kristiansantos/learning/src/shared/providers/logger"
+	"github.com/kristiansantos/learning/src/shared/middleware"
+	"github.com/kristiansantos/learning/src/shared/provider/logger"
 )
 
 type server struct {
@@ -28,10 +28,10 @@ func New(addr string, port int) *server {
 	}
 }
 
-func (s *server) Run(initializer initializers.Initializer, log logger.ILoggerProvider) error {
+func (s *server) Run(app initializer.Application, log logger.ILoggerProvider) error {
 	log.Info("server.main.Run", fmt.Sprintf("Server running on port :%d", s.Port))
-	log.Info("server.main.Run", fmt.Sprintf("Environment: %s", initializer.Environment))
-	log.Info("server.main.Run", fmt.Sprintf("Version: %s", initializer.Version))
+	log.Info("server.main.Run", fmt.Sprintf("Environment: %s", app.Environment))
+	log.Info("server.main.Run", fmt.Sprintf("Version: %s", app.Version))
 
 	//Mongo db conection
 	ctx := context.TODO()
@@ -43,7 +43,7 @@ func (s *server) Run(initializer initializers.Initializer, log logger.ILoggerPro
 		log.Info("server.main.Run", fmt.Sprintf("Mongodb start connection"))
 	}
 
-	elasticsearchConnectionError := elasticsearch.Connection(initializer, log)
+	elasticsearchConnectionError := elasticsearch.Connection(app, log)
 	if elasticsearchConnectionError != nil {
 		panic(fmt.Sprintf("error connecting to elasticsearch: %v", mongoConnection.Error))
 	} else {
@@ -56,9 +56,9 @@ func (s *server) Run(initializer initializers.Initializer, log logger.ILoggerPro
 
 	s.httpServer = http.Server{
 		Addr:         fmt.Sprintf("%s:%d", s.Addr, s.Port),
-		Handler:      middlewares.Recovery(router.Client),
-		ReadTimeout:  initializer.Application.ReadTimeout * 2,
-		WriteTimeout: initializer.Application.WriteTimeout * 2,
+		Handler:      middleware.Recovery(router.Client),
+		ReadTimeout:  app.ReadTimeout * 2,
+		WriteTimeout: app.WriteTimeout * 2,
 	}
 
 	go func() {

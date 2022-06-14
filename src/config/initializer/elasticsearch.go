@@ -1,4 +1,4 @@
-package initializers
+package initializer
 
 type Elasticsearch struct {
 	Url  string `env:"additional_information"`

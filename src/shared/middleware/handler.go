@@ -1,9 +1,9 @@
-package middlewares
+package middleware
 
 import (
 	"net/http"
 
-	"github.com/kristiansantos/learning/src/shared/providers/logger"
+	"github.com/kristiansantos/learning/src/shared/provider/logger"
 	"github.com/kristiansantos/learning/src/shared/tools/communication"
 )
 
