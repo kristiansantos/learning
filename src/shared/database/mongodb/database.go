@@ -35,13 +35,13 @@ func New(ctx context.Context) Storage {
 	return *singletonStorage
 }
 
-func connect(ctx context.Context, initializer initializers.Initializer) (*mongo.Database, error) {
+func connect(ctx context.Context, init initializers.Initializer) (*mongo.Database, error) {
 	var mongoUri string = html.UnescapeString(fmt.Sprintf("mongodb://%s:%s@%s/%s",
-		initializer.Mongo.User, initializer.Mongo.Pass, initializer.Mongo.Host, initializer.Mongo.Database))
+		init.Mongo.User, init.Mongo.Pass, init.Mongo.Host, init.Mongo.Database))
 
-	if initializer.Mongo.Args != "" {
+	if init.Mongo.Args != "" {
 		mongoUri = html.UnescapeString(fmt.Sprintf("mongodb://%s:%s@%s/%s?%s",
-			initializer.Mongo.User, initializer.Mongo.Pass, initializer.Mongo.Host, initializer.Mongo.Database, initializer.Mongo.Args))
+			init.Mongo.User, init.Mongo.Pass, init.Mongo.Host, init.Mongo.Database, init.Mongo.Args))
 	}
 
 	clientOptions := options.Client().ApplyURI(mongoUri)
@@ -56,5 +56,5 @@ func connect(ctx context.Context, initializer initializers.Initializer) (*mongo.
 		return nil, err
 	}
 
-	return client.Database(initializer.Mongo.Database), nil
+	return client.Database(init.Mongo.Database), nil
 }
