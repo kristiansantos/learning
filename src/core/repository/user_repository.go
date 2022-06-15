@@ -1,11 +1,14 @@
 package repository
 
-import "github.com/kristiansantos/learning/src/core/domain"
+import (
+	"github.com/kristiansantos/learning/src/core/domain"
+	"go.mongodb.org/mongo-driver/bson"
+)
 
 type IUserRepository interface {
-	List() (domain.Users, error)
+	List(filter bson.M) (domain.Users, error)
 	GetBy(id string) (domain.User, error)
-	Create(id string, doc interface{}) error
-	Update(id string, doc interface{}) error
+	Create(user domain.User) (domain.User, error)
+	Update(id string, user domain.User) (domain.User, error)
 	Delete(id string) error
 }

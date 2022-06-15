@@ -11,7 +11,11 @@ import (
 var Namespace = namespace.New("core.api.handlers.user")
 
 type IHandler interface {
+	CreateUserHandler(r *http.Request) communication.Response
+	DeleteUserHandler(r *http.Request) communication.Response
 	IndexUserHandler(r *http.Request) communication.Response
+	ShowUserHandler(r *http.Request) communication.Response
+	UpdateUserHandler(r *http.Request) communication.Response
 }
 
 type handler struct {
