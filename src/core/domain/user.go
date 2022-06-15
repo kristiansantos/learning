@@ -1,19 +1,29 @@
 package domain
 
-import "time"
+import (
+	"time"
+
+	"github.com/google/uuid"
+)
 
 type User struct {
-	ID        string
-	Name      string
-	Email     string
-	Password  string
-	Status    bool
-	CreateAt  time.Time
-	UpdatedAt time.Time
+	ID        string    `bson:"_id"`
+	Name      string    `bson:"name"`
+	Email     string    `bson:"email"`
+	Password  string    `bson:"password"`
+	Status    bool      `bson:"status"`
+	CreatedAt time.Time `bson:"createdAt"`
+	UpdatedAt time.Time `bson:"updatedAt"`
 }
 
 type Users []*User
 
 func NewUser() *User {
 	return &User{}
+}
+
+func (u *User) Populate() {
+	u.ID = uuid.New().String()
+	u.CreatedAt = time.Now()
+	u.UpdatedAt = time.Now()
 }

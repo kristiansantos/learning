@@ -2,6 +2,7 @@ package user
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/kristiansantos/learning/src/core/domain"
 	"github.com/kristiansantos/learning/src/shared/database/mongodb"
@@ -22,7 +23,7 @@ type Repository struct {
 	Logger     logger.ILoggerProvider
 }
 
-func UserSetup(ctx context.Context) *Repository {
+func Setup(ctx context.Context) *Repository {
 	connection := mongodb.New(ctx)
 	log := logger.Instance
 
@@ -70,7 +71,7 @@ func (r Repository) Create(user domain.User) (domain.User, error) {
 	if InsertOneError != nil {
 		return domain.User{}, InsertOneError
 	}
-
+	fmt.Println(user.ID)
 	return r.GetBy(user.ID)
 }
 
